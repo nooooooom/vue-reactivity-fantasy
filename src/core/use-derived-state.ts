@@ -10,32 +10,35 @@ export type UseDerivedStateReturn<T> = [Ref<T>, () => void]
 /**
  * Create a writable Ref whose value changes with the source.
  */
-export function useDerivedState<
-  Source,
-  Initial extends Ref,
-  Immediate extends boolean = false
->(
-  initialState: Initial,
-  source: Source,
-  options?: UseDerivedStateOptions<Immediate>
-): UseDerivedStateReturn<Source | UnwrapRef<Initial>>
 
-export function useDerivedState<
-  Source,
-  Initial,
-  Immediate extends boolean = false
->(
-  initialState: Initial,
-  source: ValueSource<Source>,
-  options?: UseDerivedStateOptions<Immediate>
-): UseDerivedStateReturn<Immediate extends true ? Source : Source | Initial>
+// overload: bind the derived state to ref
+export function useDerivedState<T>(
+  initialState: Ref<T>,
+  source: ValueSource<T>,
+  options?: UseDerivedStateOptions<boolean>
+): UseDerivedStateReturn<T>
 
-export function useDerivedState(
-  initialState: any,
-  source: any,
-  options?: UseDerivedStateOptions
-) {
-  const stateRef = ref(initialState)
+// overload: if Immediate is false, the derived state may be initial value or source
+export function useDerivedState<T, Initial>(
+  initialState: Initial,
+  source: ValueSource<T>,
+  options?: UseDerivedStateOptions<false>
+): UseDerivedStateReturn<Initial extends Ref ? UnwrapRef<Initial> : T | UnwrapRef<Initial>>
+
+// overload: if Immediate is true, initial value is always overwritten
+export function useDerivedState<T, Initial>(
+  initialState: Initial,
+  source: ValueSource<T>,
+  options?: UseDerivedStateOptions<true>
+): UseDerivedStateReturn<Initial extends Ref ? UnwrapRef<Initial> : T>
+
+// implementation
+export function useDerivedState<T, Initial = any, Immediate extends Readonly<boolean> = false>(
+  initialState: Initial,
+  source: ValueSource<T>,
+  options?: UseDerivedStateOptions<Immediate>
+): UseDerivedStateReturn<T> {
+  const stateRef = ref(initialState) as Ref<any>
 
   const stop = watch(
     source,

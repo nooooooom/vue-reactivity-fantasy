@@ -7,11 +7,7 @@ import type {
   ResolveDependencySource,
   ValueSource
 } from '../types'
-import {
-  isValidDependency,
-  resolveComputed,
-  resolveSourceValueGetter
-} from '../utils'
+import { isValidDependency, resolveComputed, resolveSourceValueGetter } from '../utils'
 
 export interface UseMemoOptions {
   deep?: boolean
@@ -31,7 +27,7 @@ export interface UseMemoOptions {
  */
 
 // overload: array of multiple dependencies,
-export function useMemo<T, D extends any[]>(
+export function useMemo<T, D extends any[] = any[]>(
   source:
     | Exclude<ValueSource<T>, Function>
     | ((
@@ -43,7 +39,7 @@ export function useMemo<T, D extends any[]>(
 ): ComputedRef<T>
 
 // overload: single or multiple dependencies
-export function useMemo<T, D extends Dependency | DependencyList>(
+export function useMemo<T, D extends Dependency | DependencyList = Dependency | DependencyList>(
   source:
     | Exclude<ValueSource<T>, Function>
     | ((
@@ -55,15 +51,15 @@ export function useMemo<T, D extends Dependency | DependencyList>(
 ): ComputedRef<T>
 
 // overload: no valid dependency, watch source change
-export function useMemo<T>(
+export function useMemo<T, D extends InvalidDependency = InvalidDependency>(
   source: ValueSource<T>,
-  dependency?: InvalidDependency
+  dependency?: D
 ): ComputedRef<T>
 
 // implementation
-export function useMemo<T, D extends Dependency | DependencyList>(
+export function useMemo<T>(
   source: any,
-  dependency?: D,
+  dependency?: any,
   options?: UseMemoOptions
 ): ComputedRef<T> {
   const stateRef = ref() as Ref<T>
