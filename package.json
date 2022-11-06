@@ -1,6 +1,6 @@
 {
   "name": "vue-reactivity-fantasy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Vue reactivity extension.",
   "keywords": [
     "Vue",
@@ -30,7 +30,7 @@
   "scripts": {
     "build": "unbuild",
     "test": "vitest",
-    "prepublish": "vitest run & nr build"
+    "prepublish": "vitest run & npm run build"
   },
   "devDependencies": {
     "@antfu/ni": "^0.18.0",
