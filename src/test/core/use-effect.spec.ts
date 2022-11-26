@@ -77,7 +77,7 @@ describe('use-effect', () => {
   it('OnCleanup with Non-dependency', async () => {
     const foo = ref(0)
 
-    useEffect(OnCleanup => {
+    useEffect((OnCleanup) => {
       const fooValue = foo.value
       OnCleanup(() => {
         expect(fooValue + 1).toBe(foo.value)
@@ -90,7 +90,7 @@ describe('use-effect', () => {
   it('OnCleanup with Non-dependency', async () => {
     const foo = ref(0)
 
-    useEffect(OnCleanup => {
+    useEffect((OnCleanup) => {
       const fooValue = foo.value
       OnCleanup(() => {
         expect(fooValue + 1).toBe(foo.value)

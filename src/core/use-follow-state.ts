@@ -14,13 +14,11 @@ export function useFollowState<T>(
   target: ValueSource<T>,
   options?: UseFollowStateOptions
 ): [Ref<T>, () => void] {
-  const stateRef = isWritableRef(initialValue)
-    ? initialValue
-    : ref(unref(initialValue))
+  const stateRef = isWritableRef(initialValue) ? initialValue : ref(unref(initialValue))
 
   const stopFollow = watch(
     target,
-    target => {
+    (target) => {
       stateRef.value = target
       options?.onFollow?.()
     },

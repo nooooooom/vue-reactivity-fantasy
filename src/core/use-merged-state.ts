@@ -23,10 +23,7 @@ export function useMergedState<T, U>(
 
   const getter = () => {
     const value = getValue()
-    return (value === undefined ? getDefaultValue() : value) as MergedState<
-      T,
-      U
-    >
+    return (value === undefined ? getDefaultValue() : value) as MergedState<T, U>
   }
 
   return computed(getter)

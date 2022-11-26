@@ -7,7 +7,7 @@ export function useDerivedState<T, Props>(
   getDerivedStateFromProps: (props: Props, prevState: T | undefined) => T
 ): ComputedRef<T> {
   let prevState: T | undefined
-  return useTransformState(props, props => {
+  return useTransformState(props, (props) => {
     return (prevState = getDerivedStateFromProps(props, prevState))
   })
 }

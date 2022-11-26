@@ -37,10 +37,7 @@ export interface UseEffectOptions<Immediate extends boolean = false>
 
 // overload: array of multiple dependencies,
 // TODO: There is no better way to distinguish reactive array and dependencies array from the type.
-export function useEffect<
-  T extends DependencyList,
-  Immediate extends Readonly<boolean> = false
->(
+export function useEffect<T extends DependencyList, Immediate extends Readonly<boolean> = false>(
   setup: SetupEffectWithDependency<
     ResolveDependencySource<T>,
     ResolveDependencySource<Immediate extends true ? T | undefined : T>
@@ -50,10 +47,7 @@ export function useEffect<
 ): StopEffect
 
 // overload: single or multiple dependency
-export function useEffect<
-  T extends EffectDependency,
-  Immediate extends Readonly<boolean> = false
->(
+export function useEffect<T extends EffectDependency, Immediate extends Readonly<boolean> = false>(
   setup: SetupEffectWithDependency<
     ResolveDependencySource<T>,
     ResolveDependencySource<Immediate extends true ? T | undefined : T>
@@ -81,7 +75,7 @@ export function useEffect<T, Immediate extends Readonly<boolean> = false>(
     return watch(
       dependency,
       (dependency, lastDependency, onCleanup) => {
-        control.reset(onCleanup => setup(onCleanup, dependency, lastDependency))
+        control.reset((onCleanup) => setup(onCleanup, dependency, lastDependency))
         onCleanup(control.clear)
       },
       options
@@ -89,8 +83,8 @@ export function useEffect<T, Immediate extends Readonly<boolean> = false>(
   }
 
   return watchEffect(
-    onCleanup => {
-      control.reset(onCleanup => setup(onCleanup))
+    (onCleanup) => {
+      control.reset((onCleanup) => setup(onCleanup))
       onCleanup(control.clear)
     },
     {

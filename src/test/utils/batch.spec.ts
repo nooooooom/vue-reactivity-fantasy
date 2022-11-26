@@ -31,7 +31,7 @@ describe('batch', () => {
 
       const current = i
 
-      await new Promise(resolve => setTimeout(resolve))
+      await new Promise((resolve) => setTimeout(resolve))
       expect(bar.value).toBe(current)
     }
   })

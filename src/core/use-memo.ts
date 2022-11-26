@@ -42,10 +42,7 @@ export function useMemo<T, D extends any[] = any[]>(
 ): ComputedRef<T>
 
 // overload: single or multiple dependencies
-export function useMemo<
-  T,
-  D extends Dependency | DependencyList = Dependency | DependencyList
->(
+export function useMemo<T, D extends Dependency | DependencyList = Dependency | DependencyList>(
   source:
     | Exclude<ValueSource<T>, Function>
     | ((

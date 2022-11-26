@@ -11,7 +11,7 @@ export function useState<T, Shallow extends Readonly<boolean> = false>(
   const state = createRef<any>(resolveSourceValue(initialValue))
   return [
     state,
-    value => {
+    (value) => {
       state.value = value
     }
   ]

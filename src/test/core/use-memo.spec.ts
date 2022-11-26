@@ -33,7 +33,7 @@ describe('use-memo', () => {
     const foo = ref(0)
     const bar = ref(0)
 
-    const memo = useMemo(bar => {
+    const memo = useMemo((bar) => {
       foo.value
       return bar
     }, bar)

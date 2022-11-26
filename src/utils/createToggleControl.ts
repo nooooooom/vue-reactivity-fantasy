@@ -23,13 +23,12 @@ export function createToggleControl<T, U>(
 
   return {
     value,
-    set: newValue => (value.value = newValue),
+    set: (newValue) => (value.value = newValue),
     setDefault: () => (value.value = getDefaultValue()),
     setReverse: () => (value.value = getReverseValue()),
     toggle: () => {
       const defaultValue = getDefaultValue()
-      value.value =
-        value.value === defaultValue ? getReverseValue() : defaultValue
+      value.value = value.value === defaultValue ? getReverseValue() : defaultValue
     }
   }
 }

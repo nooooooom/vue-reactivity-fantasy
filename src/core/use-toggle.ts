@@ -1,11 +1,7 @@
 import { ref, Ref } from 'vue'
 
 import type { MaybeValueSource } from '../types'
-import {
-  createToggleControl,
-  resolveSourceValue,
-  ToggleControl
-} from '../utils'
+import { createToggleControl, resolveSourceValue, ToggleControl } from '../utils'
 import { useTransformState } from './use-transform-state'
 
 export function useToggle(
@@ -26,17 +22,12 @@ export function useToggle<T, U>(
     reverseValue = !resolveSourceValue(defaultValue) as U
   }
 
-  const transform = asBoolean
-    ? (value: any) => Boolean(value)
-    : (value: any) => value
+  const transform = asBoolean ? (value: any) => Boolean(value) : (value: any) => value
 
   const defaultValueRef = useTransformState(defaultValue, transform)
   const reverseValueRef = useTransformState(reverseValue, transform)
 
   const stateRef = ref(defaultValueRef.value) as Ref<T | U>
 
-  return [
-    stateRef,
-    createToggleControl(stateRef, defaultValueRef, reverseValueRef)
-  ]
+  return [stateRef, createToggleControl(stateRef, defaultValueRef, reverseValueRef)]
 }

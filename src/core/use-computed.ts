@@ -1,9 +1,4 @@
-import {
-  computed,
-  ComputedRef,
-  DebuggerOptions,
-  WritableComputedRef
-} from 'vue'
+import { computed, ComputedRef, DebuggerOptions, WritableComputedRef } from 'vue'
 
 import type { ValueSource } from '../types'
 import { isFunction, resolveSourceValueGetter } from '../utils'

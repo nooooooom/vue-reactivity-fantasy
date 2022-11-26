@@ -12,10 +12,7 @@ export interface ManaualEffectControl {
   reset: (setup?: SetupEffect) => void
 }
 
-export function createManualEffect(
-  setup?: SetupEffect,
-  immediate = false
-): ManaualEffectControl {
+export function createManualEffect(setup?: SetupEffect, immediate = false): ManaualEffectControl {
   let state: number = 0
 
   let cleanup: Cleanup | undefined

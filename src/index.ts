@@ -14,10 +14,4 @@ export {
   resolveComputed
 } from './utils'
 
-export type {
-  Cleanup,
-  OnCleanup,
-  SetupEffect,
-  ManaualEffectControl,
-  ToggleControl
-} from './utils'
+export type { Cleanup, OnCleanup, SetupEffect, ManaualEffectControl, ToggleControl } from './utils'
