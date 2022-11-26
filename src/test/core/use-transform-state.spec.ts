@@ -1,6 +1,6 @@
-import { nextTick, ref } from 'vue'
+import { ref } from 'vue'
 
-import { useTransformState } from './use-transform-state'
+import { useTransformState } from 'src/core/use-transform-state'
 
 describe('use-transform-state', () => {
   it('Basic', async () => {
@@ -10,7 +10,6 @@ describe('use-transform-state', () => {
     expect(double.value).toBe(0)
 
     source.value = 1
-    await nextTick()
     expect(double.value).toBe(2)
   })
 })

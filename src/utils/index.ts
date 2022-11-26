@@ -1,2 +1,6 @@
+export * from './batch'
+export * from './createManualEffect'
+export * from './createToggleControl'
 export * from './is'
 export * from './resolve'
+export * from './untrack'

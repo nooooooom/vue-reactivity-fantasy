@@ -1,4 +1,4 @@
-import { useBoolean } from './use-boolean'
+import { useBoolean } from 'src/core/use-boolean'
 
 describe('use-boolean', () => {
   it('Basic', () => {

@@ -13,11 +13,9 @@ export function isValidDependency<T = unknown>(
     isRef(dep) ||
     isReactive(dep) ||
     isFunction(dep) ||
-    (isArray(dep) && dep.every(isValidDependency))
+    (Array.isArray(dep) && dep.every(isValidDependency))
   )
 }
-
-export const isArray = Array.isArray
 
 export function isFunction(val: unknown): val is Function {
   return typeof val === 'function'

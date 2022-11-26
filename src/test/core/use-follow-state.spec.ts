@@ -1,11 +1,11 @@
 import { nextTick, ref } from 'vue'
 
-import { useDerivedState } from './use-derived-state'
+import { useFollowState } from 'src/core/use-follow-state'
 
-describe('use-derived-state', () => {
+describe('use-follow-state', () => {
   it('Basic', async () => {
     const source = ref(0)
-    const [state] = useDerivedState(null, source)
+    const [state] = useFollowState(null, source)
 
     expect(state.value).toBe(null)
 
@@ -20,7 +20,7 @@ describe('use-derived-state', () => {
 
   it('Immediate', async () => {
     const source = ref(0)
-    const [state] = useDerivedState(null, () => source.value, {
+    const [state] = useFollowState(null, () => source.value, {
       immediate: true
     })
 
@@ -29,7 +29,7 @@ describe('use-derived-state', () => {
 
   it('Stop derivation', async () => {
     const source = ref(0)
-    const [state, stop] = useDerivedState(null, source)
+    const [state, stop] = useFollowState(null, source)
 
     source.value = 1
     await nextTick()

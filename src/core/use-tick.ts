@@ -1,16 +1,6 @@
-import { ref } from 'vue'
+import { useForceUpdate } from './use-force-update'
 
 /**
- * Simplest tick.
- * 
- * @returns [Track, Trigger]
+ * @deprecated use `useForceUpdate`
  */
-export function useTick() {
-  const tickRef = ref(0)
-  return [
-    () => tickRef.value,
-    () => {
-      tickRef.value++
-    }
-  ]
-}
+export const useTick = useForceUpdate

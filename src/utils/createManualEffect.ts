@@ -1,4 +1,4 @@
-import { isFunction } from '../utils'
+import { isFunction } from './is'
 
 export type Cleanup = () => void
 
@@ -6,16 +6,16 @@ export type OnCleanup = (cleanup: Cleanup) => void
 
 export type SetupEffect = (onCleanup: OnCleanup) => void | Cleanup
 
-export interface UseManaualEffectControl {
+export interface ManaualEffectControl {
   clear: () => void
   ensure: () => void
   reset: (setup?: SetupEffect) => void
 }
 
-export function useManualEffect(
+export function createManualEffect(
   setup?: SetupEffect,
   immediate = false
-): UseManaualEffectControl {
+): ManaualEffectControl {
   let state: number = 0
 
   let cleanup: Cleanup | undefined

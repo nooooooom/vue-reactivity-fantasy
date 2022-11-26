@@ -1,4 +1,4 @@
-import { useToggle } from './use-toggle'
+import { useToggle } from 'src/core/use-toggle'
 
 describe('use-toggle', () => {
   it('As boolean when no reverse value', () => {

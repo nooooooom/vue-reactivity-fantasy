@@ -1,6 +1,6 @@
 import { computed, nextTick, ref, watch } from 'vue'
 
-import { useState } from './use-state'
+import { useState } from 'src/core/use-state'
 
 describe('use-state', () => {
   it('Basic', () => {

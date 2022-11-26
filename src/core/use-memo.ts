@@ -1,4 +1,4 @@
-import { ComputedRef, Ref, ref, watch } from 'vue'
+import { ComputedRef, Ref, ref } from 'vue'
 
 import type {
   Dependency,
@@ -7,7 +7,9 @@ import type {
   ResolveDependencySource,
   ValueSource
 } from '../types'
-import { isValidDependency, resolveComputed, resolveSourceValueGetter } from '../utils'
+import { resolveSourceValueGetter } from '../utils'
+import { useComputed } from './use-computed'
+import { useEffect } from './use-effect'
 
 export interface UseMemoOptions {
   deep?: boolean
@@ -27,6 +29,7 @@ export interface UseMemoOptions {
  */
 
 // overload: array of multiple dependencies,
+// TODO: There is no better way to distinguish reactive array and dependencies array from the type.
 export function useMemo<T, D extends any[] = any[]>(
   source:
     | Exclude<ValueSource<T>, Function>
@@ -39,7 +42,10 @@ export function useMemo<T, D extends any[] = any[]>(
 ): ComputedRef<T>
 
 // overload: single or multiple dependencies
-export function useMemo<T, D extends Dependency | DependencyList = Dependency | DependencyList>(
+export function useMemo<
+  T,
+  D extends Dependency | DependencyList = Dependency | DependencyList
+>(
   source:
     | Exclude<ValueSource<T>, Function>
     | ((
@@ -65,31 +71,19 @@ export function useMemo<T>(
   const stateRef = ref() as Ref<T>
   const getter = resolveSourceValueGetter(source as ValueSource<T>)
 
-  if (isValidDependency(dependency)) {
-    watch(
-      dependency,
-      (dependency, lastDependency) => {
-        const currentState = (getter as any)(dependency, lastDependency)
-        if (!Object.is(stateRef.value, currentState)) {
-          stateRef.value = currentState
-        }
-      },
-      {
-        ...options,
-        immediate: true
+  useEffect(
+    (_, dependency, lastDependency) => {
+      const currentState = (getter as any)(dependency, lastDependency)
+      if (!Object.is(stateRef.value, currentState)) {
+        stateRef.value = currentState
       }
-    )
-  } else {
-    watch(
-      getter,
-      (currentValue) => {
-        stateRef.value = currentValue
-      },
-      {
-        immediate: true
-      }
-    )
-  }
+    },
+    dependency,
+    {
+      ...options,
+      immediate: true
+    }
+  )
 
-  return resolveComputed(stateRef)
+  return useComputed(stateRef)
 }

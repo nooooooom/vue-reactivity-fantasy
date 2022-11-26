@@ -1,8 +1,7 @@
 import { Ref, ref, unref } from 'vue'
 
 import type { MaybeRef } from '../types'
-import { isWritableRef } from '../utils'
-import { useToggleControl } from './use-toggle-control'
+import { createToggleControl, isWritableRef } from '../utils'
 
 export interface UseBooleanControl {
   set: (value: boolean) => void
@@ -18,7 +17,7 @@ export function useBoolean(
     ? initialValue
     : ref(!!unref(initialValue))
 
-  const toggleControl = useToggleControl(
+  const toggleControl = createToggleControl(
     stateRef,
     () => true,
     () => false

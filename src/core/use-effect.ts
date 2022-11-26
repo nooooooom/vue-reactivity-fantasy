@@ -7,12 +7,7 @@ import type {
   ResolveDependencySource
 } from '../types'
 import { isValidDependency } from '../utils'
-import {
-  Cleanup,
-  OnCleanup,
-  SetupEffect,
-  useManualEffect
-} from './use-manual-effect'
+import { Cleanup, OnCleanup, SetupEffect, createManualEffect } from '../utils'
 
 export type SetupEffectWithDependency<V, LV> = (
   onCleanup: OnCleanup,
@@ -41,6 +36,7 @@ export interface UseEffectOptions<Immediate extends boolean = false>
  */
 
 // overload: array of multiple dependencies,
+// TODO: There is no better way to distinguish reactive array and dependencies array from the type.
 export function useEffect<
   T extends DependencyList,
   Immediate extends Readonly<boolean> = false
@@ -79,15 +75,13 @@ export function useEffect<T, Immediate extends Readonly<boolean> = false>(
   dependency?: T,
   options?: UseEffectOptions<Immediate>
 ): StopEffect {
-  const control = useManualEffect()
+  const control = createManualEffect()
 
   if (isValidDependency(dependency)) {
     return watch(
       dependency,
       (dependency, lastDependency, onCleanup) => {
-        control.reset((onCleanup) =>
-          setup(onCleanup, dependency, lastDependency)
-        )
+        control.reset(onCleanup => setup(onCleanup, dependency, lastDependency))
         onCleanup(control.clear)
       },
       options
@@ -95,8 +89,8 @@ export function useEffect<T, Immediate extends Readonly<boolean> = false>(
   }
 
   return watchEffect(
-    (onCleanup) => {
-      control.reset((onCleanup) => setup(onCleanup))
+    onCleanup => {
+      control.reset(onCleanup => setup(onCleanup))
       onCleanup(control.clear)
     },
     {

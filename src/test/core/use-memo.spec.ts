@@ -1,6 +1,6 @@
 import { nextTick, ref, watch } from 'vue'
 
-import { useMemo } from './use-memo'
+import { useMemo } from 'src/core/use-memo'
 
 // Because `useMemo` is based on Vue.watch,
 // we only need to test the processing logic of different parameters
@@ -33,7 +33,7 @@ describe('use-memo', () => {
     const foo = ref(0)
     const bar = ref(0)
 
-    const memo = useMemo((bar) => {
+    const memo = useMemo(bar => {
       foo.value
       return bar
     }, bar)

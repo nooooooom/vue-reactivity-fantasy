@@ -1,6 +1,6 @@
 import { nextTick, ref } from 'vue'
 
-import { useEffect } from './use-effect'
+import { useEffect } from 'src/core/use-effect'
 
 // Because `useEffect` is based on Vue.watch,
 // we only need to test the processing logic of different parameters
@@ -77,7 +77,7 @@ describe('use-effect', () => {
   it('OnCleanup with Non-dependency', async () => {
     const foo = ref(0)
 
-    useEffect((OnCleanup) => {
+    useEffect(OnCleanup => {
       const fooValue = foo.value
       OnCleanup(() => {
         expect(fooValue + 1).toBe(foo.value)
@@ -90,7 +90,7 @@ describe('use-effect', () => {
   it('OnCleanup with Non-dependency', async () => {
     const foo = ref(0)
 
-    useEffect((OnCleanup) => {
+    useEffect(OnCleanup => {
       const fooValue = foo.value
       OnCleanup(() => {
         expect(fooValue + 1).toBe(foo.value)

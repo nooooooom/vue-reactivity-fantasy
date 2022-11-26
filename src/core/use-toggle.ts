@@ -1,25 +1,28 @@
 import { ref, Ref } from 'vue'
 
-import type { ValueSourceOrRaw } from '../types'
-import { resolveSourceValue } from '../utils'
-import { ToggleControl, useToggleControl } from './use-toggle-control'
+import type { MaybeValueSource } from '../types'
+import {
+  createToggleControl,
+  resolveSourceValue,
+  ToggleControl
+} from '../utils'
 import { useTransformState } from './use-transform-state'
 
 export function useToggle(
-  defaultValue?: ValueSourceOrRaw<any>
+  defaultValue?: MaybeValueSource<any>
 ): [Ref<boolean>, ToggleControl<boolean>]
 
 export function useToggle<T, U>(
-  defaultValue: ValueSourceOrRaw<T>,
-  reverseValue: ValueSourceOrRaw<U>
+  defaultValue: MaybeValueSource<T>,
+  reverseValue: MaybeValueSource<U>
 ): [Ref<T | U>, ToggleControl<T | U>]
 
 export function useToggle<T, U>(
-  defaultValue = false as unknown as ValueSourceOrRaw<T>,
-  reverseValue?: ValueSourceOrRaw<U>
+  defaultValue = false as unknown as MaybeValueSource<T>,
+  reverseValue?: MaybeValueSource<U>
 ): [Ref<T | U>, ToggleControl<T | U>] {
   const asBoolean = arguments.length <= 1
-  if (asBoolean) {
+  if (asBoolean && reverseValue === undefined) {
     reverseValue = !resolveSourceValue(defaultValue) as U
   }
 
@@ -27,13 +30,13 @@ export function useToggle<T, U>(
     ? (value: any) => Boolean(value)
     : (value: any) => value
 
-  const defaultValueRef = useTransformState<T>(defaultValue, transform)
-  const reverseValueRef = useTransformState<U>(reverseValue, transform)
+  const defaultValueRef = useTransformState(defaultValue, transform)
+  const reverseValueRef = useTransformState(reverseValue, transform)
 
   const stateRef = ref(defaultValueRef.value) as Ref<T | U>
 
   return [
     stateRef,
-    useToggleControl(stateRef, defaultValueRef, reverseValueRef)
+    createToggleControl(stateRef, defaultValueRef, reverseValueRef)
   ]
 }
