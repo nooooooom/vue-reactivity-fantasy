@@ -1,7 +1,8 @@
-import { ref, Ref, unref, watch } from 'vue'
+import { ref, Ref, unref } from 'vue'
 
 import type { ValueSource } from '../types'
 import { isWritableRef } from '../utils'
+import { useEffect } from './use-effect'
 
 export interface UseFollowStateOptions {
   immediate?: boolean
@@ -16,12 +17,12 @@ export function useFollowState<T>(
 ): [Ref<T>, () => void] {
   const stateRef = isWritableRef(initialValue) ? initialValue : ref(unref(initialValue))
 
-  const stopFollow = watch(
-    target,
-    (target) => {
+  const stopFollow = useEffect(
+    (_, target) => {
       stateRef.value = target
       options?.onFollow?.()
     },
+    target,
     options
   )
 

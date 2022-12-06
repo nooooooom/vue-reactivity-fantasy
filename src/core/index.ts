@@ -1,5 +1,6 @@
 export * from './use-boolean'
 export * from './use-computed'
+export * from './use-derived-state'
 export * from './use-effect'
 export * from './use-follow-state'
 export * from './use-force-update'

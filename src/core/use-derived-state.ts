@@ -1,13 +1,20 @@
 import type { ComputedRef } from 'vue'
+
 import type { ValueSource } from '../types'
+import { useMemo } from './use-memo'
 import { useTransformState } from './use-transform-state'
 
 export function useDerivedState<T, Props>(
   props: ValueSource<Props>,
-  getDerivedStateFromProps: (props: Props, prevState: T | undefined) => T
+  getDerivedStateFromProps: (props: Props, prevState: T | undefined) => T,
+  trackDerive: boolean = true
 ): ComputedRef<T> {
   let prevState: T | undefined
-  return useTransformState(props, (props) => {
-    return (prevState = getDerivedStateFromProps(props, prevState))
-  })
+  return useMemo(
+    useTransformState(
+      props,
+      (props) => (prevState = getDerivedStateFromProps(props, prevState)),
+      trackDerive
+    )
+  )
 }
