@@ -1,4 +1,5 @@
-import { ReactiveEffect } from 'vue'
+import { isVue2 } from 'vue-demi'
+import { computed } from 'vue'
 
 /**
  * Ignores tracking context inside its scope
@@ -9,11 +10,15 @@ import { ReactiveEffect } from 'vue'
 // Annotations are referenced from SolidJS
 
 export function untrack<T>(fn: () => T): T {
-  const effect = new ReactiveEffect(() => fn())
-  effect.parent = undefined
-  try {
-    return effect.run() as T
-  } finally {
-    effect.stop()
+  const reactiveScope = computed(() => fn())
+  const reactiveEffect = <any>reactiveScope.effect
+
+  if (isVue2) {
+    reactiveEffect.teardown()
+    return reactiveEffect.get()
+  } else {
+    const result = reactiveScope.value
+    reactiveEffect.stop()
+    return result
   }
 }

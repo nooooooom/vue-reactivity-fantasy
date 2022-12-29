@@ -1,4 +1,8 @@
-import { ReactiveEffect } from 'vue'
+import { computed, ComputedRef, effectScope } from 'vue'
+import { isVue2 } from 'vue-demi'
+
+import { useForceUpdate } from '../core'
+import { untrack } from './untrack'
 
 const tick = /*#__PURE__*/ Promise.resolve()
 const queue: any[] = []
@@ -29,29 +33,49 @@ const flush = () => {
 // Annotations are referenced from SolidJS
 
 export function batch<T>(fn: () => T): T {
-  let parent: ReactiveEffect | undefined
+  const reactiveScope = computed(() => fn()) as ComputedRef<T> & { _scheduled: boolean }
+  const reactiveEffect = <any>reactiveScope.effect
+
   let scheduled = false
-  const effect = new ReactiveEffect(
-    () => {
-      parent = effect.parent
-      return fn()
-    },
-    () => {
+
+  if (isVue2) {
+    const [track, trigger] = useForceUpdate()
+    let value: T
+    untrack(() => {
+      const scope = effectScope(true)
+      scope.run(() => {
+        value = reactiveScope.value
+        if (scheduled) {
+          return
+        }
+        scheduler(() => {
+          trigger()
+          scheduled = false
+        })
+        scheduled = false
+      })
+    })
+    track()
+    return value!
+  } else {
+    const originScheduler = reactiveEffect.scheduler
+    reactiveEffect.scheduler = () => {
       if (scheduled) {
         return
       }
-      scheduled = true
       scheduler(() => {
-        if (effect.active && parent) {
-          if (parent.scheduler) {
-            parent.scheduler()
+        if (reactiveEffect.active) {
+          if (originScheduler) {
+            originScheduler()
           } else {
-            parent.run()
+            reactiveEffect.run()
           }
         }
         scheduled = false
       })
+      scheduled = false
     }
-  )
-  return effect.run() as T
+  }
+
+  return reactiveScope.value
 }

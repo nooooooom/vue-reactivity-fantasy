@@ -23,7 +23,6 @@ export function useToggle<T, U>(
   }
 
   const transform = asBoolean ? (value: any) => Boolean(value) : (value: any) => value
-
   const defaultValueRef = useTransformState(defaultValue, transform)
   const reverseValueRef = useTransformState(reverseValue, transform)
 
