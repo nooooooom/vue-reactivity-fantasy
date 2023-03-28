@@ -1,7 +1,6 @@
 import { computed } from 'vue'
 
-import { useForceUpdate } from 'src/core'
-import { untrack } from 'src/utils/untrack'
+import { untrack, useForceUpdate } from 'src/core'
 
 describe('untrack', () => {
   it('Basic', () => {

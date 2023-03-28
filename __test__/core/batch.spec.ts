@@ -1,7 +1,6 @@
 import { computed } from 'vue'
 
-import { useForceUpdate } from 'src/core'
-import { batch } from 'src/utils/batch'
+import { batch, useForceUpdate } from 'src/core'
 
 describe('batch', () => {
   it('Basic', async () => {
