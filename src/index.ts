@@ -3,8 +3,6 @@ export * from './core'
 export * from './types'
 
 export {
-  batch,
-  untrack,
   createManualEffect,
   createToggleControl,
   isWritableRef,
@@ -14,4 +12,4 @@ export {
   resolveComputed
 } from './utils'
 
-export type { Cleanup, OnCleanup, SetupEffect, ManaualEffectControl, ToggleControl } from './utils'
+export type { Cleanup, OnCleanup, SetupEffect, ManualEffectControl, ToggleControl } from './utils'

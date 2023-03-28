@@ -6,13 +6,13 @@ export type OnCleanup = (cleanup: Cleanup) => void
 
 export type SetupEffect = (onCleanup: OnCleanup) => void | Cleanup
 
-export interface ManaualEffectControl {
+export interface ManualEffectControl {
   clear: () => void
   ensure: () => void
   reset: (setup?: SetupEffect) => void
 }
 
-export function createManualEffect(setup?: SetupEffect, immediate = false): ManaualEffectControl {
+export function createManualEffect(setup?: SetupEffect, immediate = false): ManualEffectControl {
   let state: number = 0
 
   let cleanup: Cleanup | undefined
