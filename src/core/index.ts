@@ -1,3 +1,5 @@
+export * from './batch'
+export * from './untrack'
 export * from './use-boolean'
 export * from './use-computed'
 export * from './use-derived-state'
@@ -9,6 +11,3 @@ export * from './use-merged-state'
 export * from './use-state'
 export * from './use-toggle'
 export * from './use-transform-state'
-
-// deprecated
-export * from './use-tick'

@@ -12,17 +12,24 @@ export function useComputed<T>(
 
 export function useComputed<T>(
   source: ValueSource<T>,
-  setter?: (value: T) => void,
+  debugOptions: DebuggerOptions
+): ComputedRef<T>
+
+export function useComputed<T>(
+  source: ValueSource<T>,
+  setter?: ((value: T) => void) | DebuggerOptions,
   debugOptions?: DebuggerOptions
 ) {
   const getter = resolveSourceValueGetter(source)
+  const options = typeof setter === 'object' ? setter : debugOptions
+
   return isFunction(setter)
     ? computed(
         {
           get: getter,
           set: setter
         },
-        debugOptions
+        options
       )
-    : computed(getter, debugOptions)
+    : computed(getter, options)
 }

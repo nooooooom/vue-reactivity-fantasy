@@ -1,37 +1,33 @@
 {
   "name": "vue-reactivity-fantasy",
   "version": "0.0.7",
-  "description": "Vue reactivity extension.",
+  "author": "nooooooom <https://github.com/nooooooom>",
+  "description": "Some fancy functionalities about vue reactivity",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
   "keywords": [
     "Vue",
     "hooks"
   ],
-  "sideEffects": false,
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
-    }
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "author": "nooooooom <https://github.com/nooooooom>",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nooooooom/vue-reactivity-fantasy.git"
   },
+  "bugs": {
+    "url": "https://github.com/nooooooom/vue-reactivity-fantasy/issues"
+  },
+  "sideEffects": false,
   "scripts": {
     "build": "unbuild",
     "test": "vue-demi-switch 3 vue & vitest",
     "test:vue2": "vue-demi-switch 2.7 vue2 & vitest --mode vue2",
-    "prepublish": "vitest run & npm run build"
+    "prepublish": "vitest run & npm run build",
+    "release": "bumpp package.json --commit --push --tag && pnpm publish --access public"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
@@ -41,13 +37,9 @@
     "vue": "^3.2.7",
     "vue2": "npm:vue@^2.7.10"
   },
-  "dependencies": {
-    "vue-demi": "*"
-  },
   "peerDependencies": {
-    "@vue/composition-api": "^1.4.0",
     "typescript": ">=4.4.4",
-    "vue": "^2.6.14 || ^3.2.0"
+    "vue": "^2.7.10 || ^3.2.0"
   },
   "peerDependenciesMeta": {
     "typescript": {
