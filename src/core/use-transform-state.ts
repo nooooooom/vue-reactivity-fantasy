@@ -1,7 +1,6 @@
 import { computed, ComputedRef } from 'vue'
-
 import type { MaybeValueSource } from '../types'
-import { resolveSourceValueGetter } from '../utils/resolve'
+import { resolveSourceValueGetter } from '../utils'
 
 /**
  * Resolve the source value, and convert it through a transform function.

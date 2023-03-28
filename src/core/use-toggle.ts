@@ -1,5 +1,4 @@
 import { ref, Ref } from 'vue'
-
 import type { MaybeValueSource } from '../types'
 import { createToggleControl, resolveSourceValue, ToggleControl } from '../utils'
 import { useTransformState } from './use-transform-state'

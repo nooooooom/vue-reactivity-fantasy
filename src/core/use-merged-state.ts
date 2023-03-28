@@ -1,5 +1,4 @@
 import { computed, ComputedRef } from 'vue'
-
 import type { MaybeValueSource } from '../types'
 import { resolveSourceValueGetter } from '../utils'
 

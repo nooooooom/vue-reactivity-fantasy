@@ -1,6 +1,5 @@
 import { ref, Ref, shallowRef, ShallowRef } from 'vue'
-
-import { resolveSourceValue } from '../utils/resolve'
+import { resolveSourceValue } from '../utils'
 import type { MaybeValueSource } from '../types'
 
 export function useState<T, Shallow extends Readonly<boolean> = false>(

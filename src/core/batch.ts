@@ -1,6 +1,5 @@
 import { computed, ComputedRef, effectScope } from 'vue'
 import { isVue2 } from 'vue-module-demi'
-
 import { useForceUpdate } from '../core'
 import { untrack } from './untrack'
 

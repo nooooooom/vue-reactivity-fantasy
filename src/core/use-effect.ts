@@ -1,13 +1,11 @@
 import { watch, watchEffect, WatchOptions } from 'vue'
-
 import type {
   Dependency,
   DependencyList,
   InvalidDependency,
   ResolveDependencySource
 } from '../types'
-import { isValidDependency } from '../utils'
-import { Cleanup, OnCleanup, SetupEffect, createManualEffect } from '../utils'
+import { Cleanup, OnCleanup, SetupEffect, createManualEffect, isValidDependency } from '../utils'
 
 export type SetupEffectWithDependency<V, LV> = (
   onCleanup: OnCleanup,

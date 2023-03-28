@@ -1,7 +1,5 @@
 export * from './core'
-
 export * from './types'
-
 export {
   createManualEffect,
   createToggleControl,
@@ -11,5 +9,4 @@ export {
   resolveSourceValueGetter,
   resolveComputed
 } from './utils'
-
 export type { Cleanup, OnCleanup, SetupEffect, ManualEffectControl, ToggleControl } from './utils'

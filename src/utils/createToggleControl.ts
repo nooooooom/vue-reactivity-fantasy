@@ -1,5 +1,4 @@
 import type { Ref } from 'vue'
-
 import type { ValueSource } from '../types'
 import { resolveSourceValueGetter } from './resolve'
 
