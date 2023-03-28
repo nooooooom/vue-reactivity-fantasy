@@ -7,6 +7,7 @@ specifiers:
   unplugin-auto-import: ^0.12.1
   vitest: ^0.24.5
   vue: ^3.2.7
+  vue-module-demi: ^0.0.5
   vue2: npm:vue@^2.7.10
 
 devDependencies:
@@ -16,6 +17,7 @@ devDependencies:
   unplugin-auto-import: 0.12.1
   vitest: 0.24.5
   vue: 3.2.45
+  vue-module-demi: 0.0.5_zwu2zepfy3m6u2gunxlolp35gi
   vue2: /vue/2.7.14
 
 packages:
@@ -2059,6 +2061,20 @@ packages:
       - sugarss
       - supports-color
       - terser
+    dev: true
+
+  /vue-module-demi/0.0.5_zwu2zepfy3m6u2gunxlolp35gi:
+    resolution: {integrity: sha512-qX0iBTYxZwUxOGzv2Q4JE3v362vs3yEibru/oeaaNXCGJYjl+mCY47q9iz6g+RiUWRG6qfKAdVc4DSO/zzuHlQ==}
+    requiresBuild: true
+    peerDependencies:
+      typescript: '>=4.4.4'
+      vue: '>=2.7.0 || ^3.2.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 4.8.4
+      vue: 3.2.45
     dev: true
 
   /vue/2.7.14:

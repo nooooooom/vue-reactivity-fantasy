@@ -24,8 +24,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "unbuild",
-    "test": "vue-demi-switch 3 vue & vitest",
-    "test:vue2": "vue-demi-switch 2.7 vue2 & vitest --mode vue2",
+    "test": "vitest",
     "prepublish": "vitest run & npm run build",
     "release": "bumpp package.json --commit --push --tag && pnpm publish --access public"
   },
@@ -36,6 +35,7 @@
     "unplugin-auto-import": "^0.12.1",
     "vitest": "^0.24.5",
     "vue": "^3.2.7",
+    "vue-module-demi": "^0.0.5",
     "vue2": "npm:vue@^2.7.10"
   },
   "peerDependencies": {

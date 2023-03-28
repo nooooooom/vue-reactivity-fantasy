@@ -1,5 +1,5 @@
-import { isVue2 } from 'vue-demi'
 import { computed } from 'vue'
+import { isVue2 } from 'vue-module-demi'
 
 /**
  * Ignores tracking context inside its scope
