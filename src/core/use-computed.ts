@@ -1,18 +1,18 @@
-import { computed, ComputedRef, DebuggerOptions, WritableComputedRef } from 'vue'
+import { computed, ComputedRef, DebuggerOptions, UnwrapRef, WritableComputedRef } from 'vue'
 import type { ValueSource } from '../types'
 import { isFunction, resolveSourceValueGetter } from '../utils'
 
-export function useComputed<T>(source: ValueSource<T>): ComputedRef<T>
+export function useComputed<T>(source: ValueSource<T>): ComputedRef<UnwrapRef<T>>
 
 export function useComputed<T>(
   source: ValueSource<T>,
   setter: (value: T) => void
-): WritableComputedRef<T>
+): WritableComputedRef<UnwrapRef<T>>
 
 export function useComputed<T>(
   source: ValueSource<T>,
   debugOptions: DebuggerOptions
-): ComputedRef<T>
+): ComputedRef<UnwrapRef<T>>
 
 export function useComputed<T>(
   source: ValueSource<T>,

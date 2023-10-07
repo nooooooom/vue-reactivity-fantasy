@@ -1,4 +1,4 @@
-import { ComputedRef, Ref, ref } from 'vue'
+import { ComputedRef, Ref, UnwrapRef, ref } from 'vue'
 import type {
   Dependency,
   DependencyList,
@@ -38,7 +38,7 @@ export function useMemo<T, D extends any[] = any[]>(
       ) => T),
   dependencies: [...D],
   options?: UseMemoOptions
-): ComputedRef<T>
+): ComputedRef<UnwrapRef<T>>
 
 // overload: single or multiple dependencies
 export function useMemo<T, D extends Dependency | DependencyList = Dependency | DependencyList>(
@@ -50,20 +50,20 @@ export function useMemo<T, D extends Dependency | DependencyList = Dependency | 
       ) => T),
   dependency: D,
   options?: UseMemoOptions
-): ComputedRef<T>
+): ComputedRef<UnwrapRef<T>>
 
 // overload: no valid dependency, watch source change
 export function useMemo<T, D extends InvalidDependency = InvalidDependency>(
   source: ValueSource<T>,
   dependency?: D
-): ComputedRef<T>
+): ComputedRef<UnwrapRef<T>>
 
 // implementation
 export function useMemo<T>(
   source: any,
   dependency?: any,
   options?: UseMemoOptions
-): ComputedRef<T> {
+): ComputedRef<UnwrapRef<T>> {
   const stateRef = ref() as Ref<T>
   const getter = resolveSourceValueGetter(source as ValueSource<T>)
 
